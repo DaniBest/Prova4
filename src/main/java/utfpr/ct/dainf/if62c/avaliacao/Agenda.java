@@ -29,6 +29,10 @@ public class Agenda {
         return compromissos;
     }
 
+    public Timer getTimer() {
+        return timer;
+    }
+
     public void novoCompromisso(Compromisso compromisso) {
         compromissos.add(compromisso);
         Aviso aviso = new AvisoFinal(compromisso);
@@ -61,9 +65,9 @@ public class Agenda {
 
     public void cancela(Compromisso compromisso) {
         for (Aviso aviso : compromisso.getAvisos()) {
-            aviso.cancel();
+            cancela(aviso);
         }
-        compromissos.remove(compromisso);
+        getCompromissos().remove(compromisso);
     }
 
     public void cancela(Aviso aviso) {
@@ -72,11 +76,9 @@ public class Agenda {
     }
 
     public void destroi() {
-        for (Compromisso compromisso : compromissos) {
-            for (Aviso aviso : compromisso.getAvisos()) {
-                cancela(aviso);
-            }
-            compromissos.remove(compromisso);
-        }        
+        for (Compromisso compromisso : getCompromissos()) {
+            cancela(compromisso);
+        }
+        getTimer().cancel();
     }
 }
