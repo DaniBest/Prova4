@@ -65,20 +65,27 @@ public class Agenda {
 
     public void cancela(Compromisso compromisso) {
         for (Aviso aviso : compromisso.getAvisos()) {
-            cancela(aviso);
+//            cancela(aviso);
+            aviso.cancel();
         }
+        compromisso.getAvisos().clear();
         getCompromissos().remove(compromisso);
     }
 
     public void cancela(Aviso aviso) {
         aviso.cancel();
-        aviso.getCompromisso().getAvisos().remove(aviso);        
+        aviso.getCompromisso().getAvisos().remove(aviso);
     }
 
     public void destroi() {
         for (Compromisso compromisso : getCompromissos()) {
-            cancela(compromisso);
+            for (Aviso aviso : compromisso.getAvisos()) {
+//            cancela(aviso);
+                aviso.cancel();
+            }
+            compromisso.getAvisos().clear();
         }
+        getCompromissos().clear();
         getTimer().cancel();
     }
 }
