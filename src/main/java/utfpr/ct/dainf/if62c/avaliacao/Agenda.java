@@ -58,7 +58,7 @@ public class Agenda {
 
         Aviso aviso = new Aviso(compromisso);
         compromisso.registraAviso(aviso);
-        Date adiantamento = new Date(compromisso.getData().getTime() - (antecedencia * 1000));
+        Date adiantamento = new Date(compromisso.getData().getTime() - (antecedencia));
         timer.schedule(aviso, adiantamento, intervaloReal);
 
     }
